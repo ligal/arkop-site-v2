@@ -1,0 +1,90 @@
+---
+import Base from '../../layouts/Base.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+const projects = await getCollection('projects');
+const base = import.meta.env.BASE_URL;
+
+const categories = [...new Set(projects.map((p) => p.data.category))];
+---
+
+<Base title="פרויקטים" description="פרויקטים נבחרים של ארקופ ברחבי ישראל">
+  <!-- Page hero -->
+  <div class="bg-charcoal text-white py-20 px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <p class="text-stone font-semibold uppercase tracking-widest text-sm mb-3">הפרויקטים שלנו</p>
+      <h1 class="text-4xl sm:text-5xl font-black mb-4">פרויקטים</h1>
+      <p class="text-white/60 text-lg max-w-2xl mx-auto">
+        מאות פרויקטים מוצלחים ברחבי ישראל — כל אחד מספר סיפור שונה של אבן, עיצוב ומקצועיות
+      </p>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Filter buttons -->
+    <div class="flex flex-wrap gap-2 mb-10" id="filter-bar">
+      <button
+        class="filter-btn active px-4 py-2 rounded-full text-sm font-semibold transition-colors bg-charcoal text-white"
+        data-category="all"
+      >
+        הכל
+      </button>
+      {categories.map((cat) => (
+        <button
+          class="filter-btn px-4 py-2 rounded-full text-sm font-semibold transition-colors bg-white text-slate border border-slate/20 hover:border-stone hover:text-stone"
+          data-category={cat}
+        >
+          {cat}
+        </button>
+      ))}
+    </div>
+
+    <!-- Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="projects-grid">
+      {projects.map((project) => (
+        <div class="project-item" data-category={project.data.category}>
+          <ProjectCard
+            title={project.data.title}
+            location={project.data.location}
+            category={project.data.category}
+            year={project.data.year}
+            href={`${base}/projects/${project.slug}`}
+          />
+        </div>
+      ))}
+    </div>
+
+    <div id="no-results" class="hidden text-center py-16 text-slate">
+      <p class="text-lg">לא נמצאו פרויקטים בקטגוריה זו</p>
+    </div>
+  </div>
+</Base>
+
+<script>
+  const filterBtns = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  const items = document.querySelectorAll<HTMLElement>('.project-item');
+  const noResults = document.getElementById('no-results');
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const category = btn.getAttribute('data-category');
+
+      filterBtns.forEach((b) => {
+        b.classList.remove('active', 'bg-charcoal', 'text-white');
+        b.classList.add('bg-white', 'text-slate', 'border', 'border-slate/20');
+      });
+      btn.classList.add('active', 'bg-charcoal', 'text-white');
+      btn.classList.remove('bg-white', 'text-slate', 'border', 'border-slate/20');
+
+      let visible = 0;
+      items.forEach((item) => {
+        const match = category === 'all' || item.getAttribute('data-category') === category;
+        item.classList.toggle('hidden', !match);
+        if (match) visible++;
+      });
+
+      noResults?.classList.toggle('hidden', visible > 0);
+    });
+  });
+</script>

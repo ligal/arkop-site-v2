@@ -1,0 +1,59 @@
+---
+import Base from '../../layouts/Base.astro';
+import Gallery from '../../components/Gallery.astro';
+import { getEntry } from 'astro:content';
+
+const stone = await getEntry('stones', 'makatim');
+const { Content } = await stone.render();
+const base = import.meta.env.BASE_URL;
+---
+
+<Base title={stone.data.title} description={stone.data.description}>
+  <div class="bg-charcoal/5 border-b border-charcoal/10 py-3">
+    <div class="max-w-5xl mx-auto px-4 flex items-center gap-2 text-sm text-slate">
+      <a href={`${base}/`} class="hover:text-stone transition-colors">דף הבית</a>
+      <svg class="w-4 h-4 rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+      <a href={`${base}/our-stones`} class="hover:text-stone transition-colors">האבנות שלנו</a>
+      <svg class="w-4 h-4 rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+      <span class="text-charcoal font-medium">{stone.data.title}</span>
+    </div>
+  </div>
+
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+      <div class="lg:col-span-2">
+        <h1 class="text-charcoal text-3xl sm:text-4xl font-black mb-4">{stone.data.title}</h1>
+        <p class="text-slate text-lg leading-relaxed mb-8">{stone.data.description}</p>
+        <div class="prose max-w-none mb-10 text-slate leading-relaxed
+          [&_h2]:text-charcoal [&_h2]:font-black [&_h2]:text-2xl [&_h2]:mb-4 [&_h2]:mt-8
+          [&_h3]:text-charcoal [&_h3]:font-bold [&_h3]:text-lg [&_h3]:mb-3 [&_h3]:mt-6
+          [&_ul]:list-disc [&_ul]:list-inside [&_ul]:space-y-1
+          [&_p]:mb-4 [&_strong]:text-charcoal [&_strong]:font-semibold">
+          <Content />
+        </div>
+        {stone.data.images.length > 0 && (
+          <div>
+            <h2 class="text-charcoal font-black text-xl mb-4">גלריה</h2>
+            <Gallery images={stone.data.images} basePath="images/stones/makatim" title={stone.data.title} />
+          </div>
+        )}
+      </div>
+      <div class="lg:col-span-1">
+        <div class="bg-charcoal text-white rounded-xl p-6 sticky top-24">
+          <h3 class="font-bold text-lg mb-3">מעוניינים ב{stone.data.title}?</h3>
+          <p class="text-white/60 text-sm mb-5 leading-relaxed">צרו קשר לקבלת מידע על מחירים, מלאי וזמני אספקה</p>
+          <a href={`${base}/contact`} class="block w-full bg-stone text-charcoal text-center font-bold py-3 rounded-lg hover:bg-stone/90 transition-colors">
+            קבל הצעת מחיר
+          </a>
+          <a href="tel:030000000" class="block w-full border border-white/20 text-white text-center font-medium py-3 rounded-lg hover:border-white/50 transition-colors mt-3 text-sm">
+            התקשר: 03-000-0000
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Base>

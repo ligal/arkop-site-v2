@@ -1,0 +1,52 @@
+---
+import Base from '../../layouts/Base.astro';
+import StoneCard from '../../components/StoneCard.astro';
+import { getCollection } from 'astro:content';
+
+const stones = (await getCollection('stones')).sort((a, b) => a.data.order - b.data.order);
+const base = import.meta.env.BASE_URL;
+---
+
+<Base title="האבנים שלנו" description="מגוון האבנות הטבעיות של ארקופ — גרניט, שיש, חלוקי נחל, אגאט ועוד">
+  <!-- Page hero -->
+  <div class="bg-charcoal text-white py-20 px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <p class="text-stone font-semibold uppercase tracking-widest text-sm mb-3">הקטלוג שלנו</p>
+      <h1 class="text-4xl sm:text-5xl font-black mb-4">האבנות שלנו</h1>
+      <p class="text-white/60 text-lg max-w-2xl mx-auto">
+        יותר מ-50 סוגי אבן ייחודיים מהמחצבות הטובות בעולם — כל אחת עם אופי ויופי משלה
+      </p>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      {stones.map((stone) => (
+        <StoneCard
+          title={stone.data.title}
+          description={stone.data.description}
+          href={`${base}/our-stones/${stone.slug}`}
+        />
+      ))}
+    </div>
+
+    <!-- Info banner -->
+    <div class="mt-16 bg-stone/10 rounded-2xl p-8 sm:p-12 flex flex-col sm:flex-row items-center gap-6">
+      <div class="shrink-0 w-16 h-16 bg-stone/20 rounded-full flex items-center justify-center">
+        <svg class="w-8 h-8 text-stone" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <div class="text-center sm:text-start">
+        <h3 class="text-charcoal font-bold text-lg mb-2">לא מצאתם מה שחיפשתם?</h3>
+        <p class="text-slate text-sm mb-4">המלאי שלנו משתנה ומתרחב כל הזמן. צרו קשר ואנחנו נעשה הכל כדי למצוא עבורכם את האבן המתאימה.</p>
+        <a
+          href={`${base}/contact`}
+          class="inline-flex items-center gap-2 bg-charcoal text-white font-semibold px-6 py-2.5 rounded-lg hover:bg-charcoal/90 transition-colors text-sm"
+        >
+          שאלו אותנו
+        </a>
+      </div>
+    </div>
+  </div>
+</Base>
