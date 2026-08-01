@@ -1,90 +1,109 @@
 ---
 import Base from '../../layouts/Base.astro';
-import ProjectCard from '../../components/ProjectCard.astro';
-import { getCollection } from 'astro:content';
+const projectsInIsrael = [
+  'תל אביב – בית הלוחם / אדריכל נוף: רנן ריזקינד',
+  'תל אביב – הירקון 2 / אדריכלית נוף: מאיה זוהר',
+  'תל אביב – הסוללים / אדריכלית נוף: חלי אלול-צלניקר',
+  'באר שבע – גב ים 5 / אדריכלות נוף: ת.מ.א.',
+  'באר שבע – פיתוח בי"ח סורוקה / אדריכלות נוף: יוסי שושן - סטרוקטורה',
+  'קיבוץ גברעם – אתר הנצחה לחללי צוק איתן / אב אדריכלות נוף',
+  'קיבוץ גליל ים – שצ"פ 415 / אדריכלות נוף: צור-וולף',
+  'חולון – שצ"פ פיכמן / אדריכלות נוף: סוזנה-ליהוא',
+  'ראש העין – פארק לב העיר / אדריכלות נוף: דוד אלחנתי',
+  'רמת גן – פיתוח מתחם עלית / אדריכלות נוף: צור-וולף',
+  'נתיבות – גן המדע / אדריכלות נוף: מקום – בני שדמי',
+  'רעננה – פארק הייטק / אדריכלות נוף: צורנמל-טורנר',
+  'רמת השרון – ביג גלילות / אדריכלות נוף: צור-וולף',
+  'תל אביב – שצ"פ לוחמי גאליפולי / אדריכלות נוף: נתי בלוקא',
+  'תל אביב – פיתוח מבנה מגורים פורט טי.אל.וי / אדריכל: אילן פיבקו, אדר\' נוף: נחלת הכלל',
+  'אור יהודה – מעגלי תנועה / אדריכלות נוף: צ\'סלר-סלומון',
+  'רהט – פיתוח היכל התרבות (שלב א\') / אדריכל נוף: דוד אלחנתי',
+  'פתח תקווה – פיתוח בית חולים שניידר / אדריכלות נוף: יוסי שושן – סטרוקטורה',
+  'תל אביב – פיתוח בנין מידטאון / אדריכלות נוף: ת.מ.א.',
+  'הרצליה – שצ"פ דן שומרון / אדריכלות נוף: צור-וולף',
+  'חולון – שצ"פ מגדלים בשדרה / אדריכלות נוף: ברוס לוין (ק.ס.מ.)',
+  'ראשל"צ – מזרקות בשדרות שז"ר / אדריכלות נוף: איזי בלנק',
+  'שדרות – פארק שכונת הכלניות / אדריכלות נוף: יעקב כהן',
+  'מצפה רמון – מזרקה / אדריכלות נוף: זק רייכר',
+  'גבעת אולגה – שצ"פ / אדריכלות נוף: ת.מ.א.',
+  'תל אביב שכונת צהלה – בית יד לבנים / אדריכלות נוף: טרי גרינבלט',
+  'תל אביב אוניברסיטה – בית ברודקום / זרחי אדריכלים',
+  'תל אביב - מגדל הצעירים – פיתוח / אדריכלות נוף: צור-וולף',
+  'תל אביב - ספסלי פיתוח ברח\' לה-גוורדיה / אדריכלות נוף: סוזנה-ליהוא',
+  'תל אביב – פיתוח מבנה לשימור ברח\' מקווה ישראל / אדריכלות: יניב פרדו',
+  'באר שבע – פארק רמות / אדריכלות נוף: איזי בלנק',
+  'קיבוץ גליל ים – טריבונות וספסלי ישיבה / אדריכלות נוף: צור-וולף',
+  'הרצליה – המרכז הבינתחומי / גוטסמן – שמלצמן אדריכלים',
+  'מודיעין – מע"ר / אדריכלות נוף: ברברה אהרונסון',
+  'רמת גן – גן שלו / אדריכלות נוף: נחלת הכלל',
+  'באר שבע – גב ים בנין נגב 5 / אדריכלות נוף: ת.מ.א.',
+  'הרצליה הילס – מרכז ספורט ובריכת נוי / אדריכלות נוף: צור-וולף',
+  'חיפה – שיקום מרכז הכרמל / אדריכלות נוף: גרינשטיין - הרגיל',
+  'תל אביב – בית מאזדה-פורד / אדריכלות נוף: צור-וולף',
+  'אור יהודה – טרמינל פארק / אדריכלות נוף: מאיה זוהר',
+  'הרצליה – שצ"פ המסילה / אדריכלות נוף: צור-וולף',
+  'חיפה – גשר נאות פרס / אדריכלות נוף: מילר-בלום חיפה',
+  'ראשל"צ – בית קיה / אדריכלות נוף: צור-וולף',
+  'רמת גן – שצ"פ מרום נווה / אדריכלות נוף: LANDART – תום חפץ ורינת גרוסמן',
+  'רעננה – ספורטק / אדריכלות נוף: גילר-לדרמן',
+  'תל אביב – מתחם השוק הסיטונאי (גינדי) / אדריכלות נוף: צור-וולף',
+  'נתניה – שצ"פ עיר ימים – שלב ב\' / אדריכלות נוף: צבי דקל',
+  'רמת גן – מגדל רמה / אדריכלות נוף: צור-וולף',
+  'לוד – מתחם אוויס / אדריכלות נוף: צור-וולף',
+  'תל אביב – בנין מגורים משותף בשיכון ל\' (פרטי)',
+  'הרצליה פיתוח (א.ת.) – בנין APPLE ובנין מפעל חמצן / אדריכלות נוף: ת.מ.א.',
+  'הרצליה פיתוח (א.ת.) – בית מרצדס / אדריכלות נוף: צור-וולף',
+  'כיכר גבעון – תל אביב / אדריכלות נוף: ת.מ.א.',
+  'שדרות התמרים – אילת / אדריכלות נוף: איתי לינינברג.',
+  'מזרקה מוזיקאלית - אילת / אדריכלות נוף: שדה - גולדשטיין - מורד.',
+  'שצ"פ משכנות שאול - כפר סבא הירוקה / אדריכלות נוף: רינה קרוגליאק.',
+  'בריכה אקולוגית – פארק הרצליה / אדריכלות נוף: ברברה אהרונסון.',
+  'מעגלי תנועה בקרית גת / אדריכלות נוף: מוריה סקלי.',
+  'מרכז תחבורה – באר שבע / אדריכלות נוף: אסיף ברמן.',
+  'פארק זכרון יעקב / אדריכלות נוף: גרינשטיין – הר גיל.',
+  'המושבה האמריקאית ביפו / אדריכלות נוף: ת.מ.א.',
+  'מגדל מגורים ברחוב רמז בתל אביב / אדריכלות נוף: ת.מ.א.',
+  'מוזיאון העיצוב בחולון / אדריכלות נוף: ת.מ.א.',
+  'מרכז פרס לשלום ביפו / אדריכלות נוף: ת.מ.א.',
+  'בנין ננו-טכנולוגיה באוניברסיטת בר אילן / אדריכלות: גרנות אדריכלים.',
+  'משרדי אריסון השקעות בת"א / אדריכלות: ברנוביץ\'-קרוננברג.',
+  'פארק ההייטק ברעננה / אדריכלות נוף: צורנמל-טורנר.',
+  'מזרקה מיוחדת בפארק צ\'רלס קלור בת"א / אדריכלות נוף: ברוידא-מעוז.',
+  'חנויות רשת בילאבונג בקניונים שונים / אדריכלות: אקר-מיכאל אדריכלים.',
+  'משרדי חברת פרוקטור אנד גאמבל ברמת החייל / אדריכלות: הדס מקוב.',
+  'שצ"פ מבנן מגורים ברמת רחל - ירושלים / אדריכלות נוף: רינה קרוגליאק.',
+  'פארק המוסיקה בראש העין / אדריכלות נוף: איתן עדן.',
+  'פאטיו – מרכז קשב בלוד / אדריכלות נוף: ת.מ.א.',
+  'פיתוח סביבתי באשקלון / אדריכלות נוף: רימון סביבה ונוף בע"מ.',
+  'משרד חברת I.F.P בהרצליה / אדריכלות: מיכל גלובן.',
+  'חנויות תכשיטי פדני בת"א / עיצוב: אמנה ניב-אלוני.'
+];
 
-const projects = await getCollection('projects');
-const base = import.meta.env.BASE_URL;
-
-const categories = [...new Set(projects.map((p) => p.data.category))];
+const projectsAbroad = ['בניני משרדים, מגורים ופיתוח סביבתי.'];
 ---
 
-<Base title="פרויקטים" description="פרויקטים נבחרים של ארקופ ברחבי ישראל">
-  <!-- Page hero -->
-  <div class="bg-charcoal text-white py-20 px-4">
-    <div class="max-w-4xl mx-auto text-center">
-      <p class="text-stone font-semibold uppercase tracking-widest text-sm mb-3">הפרויקטים שלנו</p>
-      <h1 class="text-4xl sm:text-5xl font-black mb-4">פרויקטים</h1>
-      <p class="text-white/60 text-lg max-w-2xl mx-auto">
-        מאות פרויקטים מוצלחים ברחבי ישראל — כל אחד מספר סיפור שונה של אבן, עיצוב ומקצועיות
-      </p>
+<Base title="פרוייקטים" description="פרוייקטים שבוצעו בארץ ובחו״ל">
+  <section class="relative overflow-hidden bg-[#072f2d] text-white">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,#8f2236_0%,transparent_45%)] opacity-60"></div>
+    <div class="relative max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-16 text-center">
+      <h1 class="text-4xl sm:text-5xl font-black mb-3">פרוייקטים</h1>
+      <p class="text-white/80">אותם פרוייקטים מהאתר הישן, בעיצוב של האתר החדש.</p>
     </div>
-  </div>
+  </section>
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <!-- Filter buttons -->
-    <div class="flex flex-wrap gap-2 mb-10" id="filter-bar">
-      <button
-        class="filter-btn active px-4 py-2 rounded-full text-sm font-semibold transition-colors bg-charcoal text-white"
-        data-category="all"
-      >
-        הכל
-      </button>
-      {categories.map((cat) => (
-        <button
-          class="filter-btn px-4 py-2 rounded-full text-sm font-semibold transition-colors bg-white text-slate border border-slate/20 hover:border-stone hover:text-stone"
-          data-category={cat}
-        >
-          {cat}
-        </button>
-      ))}
-    </div>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-12 space-y-8">
+    <section class="bg-white rounded-2xl border border-black/5 shadow-sm p-5 sm:p-7">
+      <h2 class="text-[#072f2d] text-xl sm:text-2xl font-black mb-5">פרוייקטים שבוצעו בארץ:</h2>
+      <ul class="list-disc list-inside marker:text-[#8f2236] space-y-2.5 text-charcoal leading-relaxed text-sm sm:text-base">
+        {projectsInIsrael.map((item) => <li>{item}</li>)}
+      </ul>
+    </section>
 
-    <!-- Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="projects-grid">
-      {projects.map((project) => (
-        <div class="project-item" data-category={project.data.category}>
-          <ProjectCard
-            title={project.data.title}
-            location={project.data.location}
-            category={project.data.category}
-            year={project.data.year}
-            href={`${base}/projects/${project.slug}`}
-          />
-        </div>
-      ))}
-    </div>
-
-    <div id="no-results" class="hidden text-center py-16 text-slate">
-      <p class="text-lg">לא נמצאו פרויקטים בקטגוריה זו</p>
-    </div>
+    <section class="bg-white rounded-2xl border border-black/5 shadow-sm p-5 sm:p-7">
+      <h2 class="text-[#072f2d] text-xl sm:text-2xl font-black mb-5">פרוייקטים שבוצעו בחו״ל:</h2>
+      <ul class="list-disc list-inside marker:text-[#8f2236] space-y-2.5 text-charcoal leading-relaxed text-sm sm:text-base">
+        {projectsAbroad.map((item) => <li>{item}</li>)}
+      </ul>
+    </section>
   </div>
 </Base>
-
-<script>
-  const filterBtns = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
-  const items = document.querySelectorAll<HTMLElement>('.project-item');
-  const noResults = document.getElementById('no-results');
-
-  filterBtns.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const category = btn.getAttribute('data-category');
-
-      filterBtns.forEach((b) => {
-        b.classList.remove('active', 'bg-charcoal', 'text-white');
-        b.classList.add('bg-white', 'text-slate', 'border', 'border-slate/20');
-      });
-      btn.classList.add('active', 'bg-charcoal', 'text-white');
-      btn.classList.remove('bg-white', 'text-slate', 'border', 'border-slate/20');
-
-      let visible = 0;
-      items.forEach((item) => {
-        const match = category === 'all' || item.getAttribute('data-category') === category;
-        item.classList.toggle('hidden', !match);
-        if (match) visible++;
-      });
-
-      noResults?.classList.toggle('hidden', visible > 0);
-    });
-  });
-</script>

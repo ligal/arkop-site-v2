@@ -8,6 +8,8 @@ interface Props {
 
 const { title, description, href, imageSrc } = Astro.props;
 const base = import.meta.env.BASE_URL;
+const baseWithSlash = base.endsWith('/') ? base : `${base}/`;
+const normalizedImageSrc = imageSrc?.replace(/^\/+/, '');
 ---
 
 <a
@@ -17,7 +19,7 @@ const base = import.meta.env.BASE_URL;
   <div class="aspect-[4/3] overflow-hidden bg-slate/10 relative">
     {imageSrc ? (
       <img
-        src={`${base}${imageSrc}`}
+        src={`${baseWithSlash}${normalizedImageSrc}`}
         alt={title}
         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         loading="lazy"

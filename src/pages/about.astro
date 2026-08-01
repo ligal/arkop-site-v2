@@ -1,97 +1,38 @@
 ---
 import Base from '../layouts/Base.astro';
-const base = import.meta.env.BASE_URL;
 ---
 
-<Base title="אודות" description="הכירו את ארקופ — יבואן ומפיץ אבן טבעית בישראל מאז 2005">
-  <!-- Page hero -->
-  <div class="bg-charcoal text-white py-20 px-4">
-    <div class="max-w-4xl mx-auto text-center">
-      <p class="text-stone font-semibold uppercase tracking-widest text-sm mb-3">הסיפור שלנו</p>
-      <h1 class="text-4xl sm:text-5xl font-black mb-4">אודות ארקופ</h1>
-      <p class="text-white/60 text-lg max-w-2xl mx-auto">
-        מאז 2005, ארקופ היא שם נרדף לאיכות ומקצועיות בתחום אבן הטבעית בישראל
+<Base title="אודות ארקופ" description="אודות ארקופ">
+  <section class="relative overflow-hidden bg-[#072f2d] text-white">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,#8f2236_0%,transparent_45%)] opacity-60"></div>
+    <div class="relative max-w-5xl mx-auto px-4 sm:px-6 py-14 sm:py-16 text-center">
+      <h1 class="text-4xl sm:text-5xl font-black">אודות ארקופ</h1>
+    </div>
+  </section>
+
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-12">
+    <div class="bg-white rounded-2xl border border-black/5 shadow-sm p-6 sm:p-8">
+      <p class="text-charcoal leading-relaxed mb-6">
+        ARKOP מייבאת ומשווקת מבחר גדול ומרהיב של אבנים טבעיות ואבני זכוכית (מעוגלות או גרוסות).
       </p>
-    </div>
-  </div>
 
-  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <!-- Story -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
-      <div>
-        <h2 class="text-charcoal text-2xl sm:text-3xl font-black mb-5">כיצד הכל התחיל</h2>
-        <p class="text-slate leading-relaxed mb-4">
-          ארקופ נוסדה בשנת 2005 על ידי יזמים עם אהבה עמוקה לאבן טבעית ולחומרי בניה איכותיים. החזון היה פשוט: להביא לישראל את הטוב ביותר שהטבע יכול להציע, במחירים הוגנים ועם שירות אישי שלא ניתן למצוא במקום אחר.
-        </p>
-        <p class="text-slate leading-relaxed mb-4">
-          לאורך השנים פיתחנו קשרים עמוקים עם מחצבות ויצרנים ברחבי העולם — מאיטליה ותורכיה, דרך ספרד ומרוקו ועד הודו וברזיל. כל שיתוף פעולה נבחר בקפידה לאחר ביקורים אישיים ובדיקת האיכות ממקור ראשון.
-        </p>
-        <p class="text-slate leading-relaxed">
-          היום, ארקופ משרתת מאות לקוחות בשנה — ממשפחות פרטיות המעצבות את ביתן, דרך קבלנים ובוני יוקרה, ועד ארכיטקטים ומעצבי פנים מהמובילים בתחום.
-        </p>
-      </div>
-      <div class="bg-stone/10 rounded-2xl p-10 text-center">
-        <div class="grid grid-cols-2 gap-8">
-          {[
-            { num: '2005', label: 'שנת הקמה' },
-            { num: '500+', label: 'פרויקטים' },
-            { num: '50+', label: 'סוגי אבן' },
-            { num: '20+', label: 'שנות ניסיון' },
-          ].map(({ num, label }) => (
-            <div class="text-center">
-              <p class="text-stone text-3xl font-black">{num}</p>
-              <p class="text-slate text-sm mt-1">{label}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
+      <p class="text-charcoal leading-relaxed mb-4">
+        ARKOP משתפת פעולה עם מיטב בעלי המקצוע בארץ בתחומים הבאים:
+      </p>
 
-    <!-- Values -->
-    <div class="mb-16">
-      <h2 class="text-charcoal text-2xl sm:text-3xl font-black mb-8 text-center">הערכים שלנו</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {[
-          {
-            title: 'איכות ללא פשרות',
-            desc: 'כל מוצר שנכנס למחסן שלנו עבר בדיקת איכות קפדנית. אנו מאמינים שאבן היא השקעה לחיים, ולכן אין מקום לפשרות.',
-          },
-          {
-            title: 'שקיפות מלאה',
-            desc: 'המחירים שלנו ברורים, ואנחנו מסבירים לכל לקוח בדיוק מה הוא מקבל, מאיפה הגיע החומר וכיצד לטפל בו.',
-          },
-          {
-            title: 'שירות אישי',
-            desc: 'כל לקוח מקבל ייעוץ מותאם מאחד ממומחי האבן שלנו. אנחנו כאן מהשלב הראשון ועד שהפרויקט הושלם.',
-          },
-          {
-            title: 'אחריות סביבתית',
-            desc: 'אנו פועלים לצמצום הפסולת, ומציעים חומרים ממוחזרים ומפעלים בעלי תקני סביבה בינלאומיים.',
-          },
-        ].map(({ title, desc }) => (
-          <div class="flex gap-4 p-6 bg-white rounded-xl shadow-sm">
-            <div class="w-10 h-10 bg-stone/20 rounded-full flex items-center justify-center shrink-0 mt-1">
-              <div class="w-3 h-3 bg-stone rounded-full"></div>
-            </div>
-            <div>
-              <h3 class="text-charcoal font-bold text-lg mb-2">{title}</h3>
-              <p class="text-slate text-sm leading-relaxed">{desc}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+      <ul class="list-disc list-inside marker:text-[#8f2236] space-y-2 text-charcoal leading-relaxed mb-6">
+        <li>יציקות טרצו מינרלי / אפוקסי.</li>
+        <li>יציקות זכוכיות / אבנים טבעיות בשיטת STONE-CARPET.</li>
+        <li>יציקות גרנוליט ייחודיות (עם אפשרות שילוב זכוכיות).</li>
+        <li>ייצור אריחי חוץ.</li>
+      </ul>
 
-    <!-- CTA -->
-    <div class="bg-charcoal text-white rounded-2xl p-10 text-center">
-      <h2 class="text-2xl font-black mb-3">רוצים לדעת עוד?</h2>
-      <p class="text-white/60 mb-6">צרו קשר ונשמח לענות על כל שאלה</p>
-      <a
-        href={`${base}/contact`}
-        class="inline-flex items-center gap-2 bg-stone text-charcoal font-bold px-8 py-3 rounded-lg hover:bg-stone/90 transition-colors"
-      >
-        צור קשר
-      </a>
+      <div class="text-charcoal leading-relaxed">
+        <p class="font-semibold">דודי ארנון</p>
+        <p>נייד: 054-5233095</p>
+        <p>דוא"ל: arkop@netvision.net.il</p>
+        <p>אתר: arkop.co.il</p>
+      </div>
     </div>
   </div>
 </Base>

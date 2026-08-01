@@ -1,99 +1,41 @@
 ---
 import Base from '../layouts/Base.astro';
-const base = import.meta.env.BASE_URL;
 
 const advantages = [
-  {
-    number: '01',
-    title: 'ייבוא ישיר מהמחצבה',
-    desc: 'ארקופ עובדת ישירות מול המחצבות ויצרני האבן בחו"ל, ללא מתווכים מיותרים. זה מאפשר לנו להציע מחירים תחרותיים לצד שליטה מלאה באיכות החומרים.',
-    icon: 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
-  },
-  {
-    number: '02',
-    title: 'מלאי רחב ומגוון',
-    desc: 'יותר מ-50 סוגי אבן שמורים בקביעות במחסנינו. מגרניט ושיש איטלקי, דרך חלוקי נחל, ועד לאבנות ייחודיות כמו אגאט וזכוכית מעוצבת — הכל במקום אחד.',
-    icon: 'M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4',
-  },
-  {
-    number: '03',
-    title: 'ייעוץ מקצועי ללא עלות',
-    desc: 'צוות המומחים שלנו כולל מעצבים ומהנדסים שמוכנים לסייע לכם לבחור את האבן הנכונה לצרכים שלכם — בין אם מדובר בדירה פרטית, פרויקט ציבורי או מבנה מסחרי.',
-    icon: 'M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z',
-  },
-  {
-    number: '04',
-    title: 'משלוח מהיר לכל הארץ',
-    desc: 'אנו מפעילים ציי משאיות מודרניים ומספקים לכל נקודה בישראל. יש לנו את הניסיון לתכנן לוגיסטיקה מורכבת לאתרי בניה פעילים ולאזורים מרוחקים.',
-    icon: 'M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4',
-  },
-  {
-    number: '05',
-    title: 'אחריות על מוצרים',
-    desc: 'כל המוצרים שלנו מגיעים עם תעודת מקור ואחריות. אנו עומדים מאחורי כל אבן שיוצאת מהמחסן שלנו ומטפלים בכל תלונה ברצינות ובמהירות.',
-    icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
-  },
-  {
-    number: '06',
-    title: 'לקוחות חוזרים — 85%',
-    desc: 'שיעור הלקוחות החוזרים שלנו עומד על 85%. זהו הנתון הטוב ביותר שאנחנו יכולים להציג — הוכחה חיה לאמינות, לאיכות ולשירות שאנחנו מעניקים בכל פרויקט.',
-    icon: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15',
-  },
+  'מגוון רחב של גדלים, המאפשר חיפוי בעוביים שונים.',
+  'עובי טיוח דק יחסית, המהווה פתרון אידיאלי לחיפוי משטחים קמורים וצורתיים.',
+  'מגוון רחב של צבעים.',
+  'מגוון רחב של סוגי אבנים: אבן טבעית, אבן זכוכית.',
+  'אבנים מעודנות, מעוגלות או גרוסות, המקנות תחושה נעימה ויוקרתית.',
+  'אפשרות יצירת תערובות אבן צבעוניות כיד הדמיון.',
+  "שילוב עם כל סוגי החיפויים: אבן, עץ, קרמיקה, שיש, זכוכית וכד'.",
 ];
 ---
 
 <Base title="יתרונות" description="למה לבחור בארקופ — יתרונות הייחודיים שלנו">
-  <!-- Page hero -->
-  <div class="bg-charcoal text-white py-20 px-4">
-    <div class="max-w-4xl mx-auto text-center">
-      <p class="text-stone font-semibold uppercase tracking-widest text-sm mb-3">למה אנחנו?</p>
-      <h1 class="text-4xl sm:text-5xl font-black mb-4">היתרונות שלנו</h1>
-      <p class="text-white/60 text-lg max-w-2xl mx-auto">
-        אנחנו לא רק מוכרים אבן — אנחנו מספקים פתרון כולל שמתחיל בייעוץ ומסתיים בסיפוק מלא
-      </p>
+  <section class="relative overflow-hidden bg-[#072f2d] text-white">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,#8f2236_0%,transparent_45%)] opacity-60"></div>
+    <div class="relative max-w-5xl mx-auto px-4 sm:px-6 py-14 sm:py-16 text-center">
+      <h1 class="text-4xl sm:text-5xl font-black">היתרונות שלנו</h1>
+      <div class="w-24 h-1 rounded-full bg-[#8f2236] mx-auto mt-5"></div>
     </div>
-  </div>
+  </section>
 
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      {advantages.map(({ number, title, desc, icon }) => (
+      {advantages.map((text, index) => (
         <div class="flex gap-5 p-7 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
           <div class="shrink-0">
             <div class="w-12 h-12 bg-stone/15 rounded-xl flex items-center justify-center">
-              <svg class="w-6 h-6 text-stone" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={icon} />
-              </svg>
+              <span class="text-stone/80 text-sm font-bold">{String(index + 1).padStart(2, '0')}</span>
             </div>
           </div>
           <div>
-            <span class="text-stone/60 text-xs font-bold">{number}</span>
-            <h3 class="text-charcoal font-bold text-lg mt-1 mb-2">{title}</h3>
-            <p class="text-slate text-sm leading-relaxed">{desc}</p>
+            <p class="text-charcoal text-base leading-relaxed font-medium">{text}</p>
           </div>
         </div>
       ))}
     </div>
 
-    <!-- Testimonial -->
-    <div class="mt-16 bg-stone/10 rounded-2xl p-10 text-center">
-      <svg class="w-10 h-10 text-stone/40 mx-auto mb-5" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-      </svg>
-      <blockquote class="text-charcoal text-xl font-medium leading-relaxed max-w-2xl mx-auto mb-6">
-        "ארקופ סיפקה לנו חומרים יוצאי דופן לפרויקט של 300 יחידות דיור. השירות האישי, העמידה בלוחות זמנים והאיכות הגבוהה הפכו אותם לשותף מעולה."
-      </blockquote>
-      <p class="text-slate font-semibold">דוד לוי</p>
-      <p class="text-stone text-sm">קבלן ראשי, DL Building</p>
-    </div>
-
-    <!-- CTA -->
-    <div class="mt-12 text-center">
-      <a
-        href={`${base}/contact`}
-        class="inline-flex items-center gap-2 bg-charcoal text-white font-bold px-10 py-4 rounded-lg hover:bg-charcoal/90 transition-colors text-lg"
-      >
-        קבלו הצעת מחיר חינם
-      </a>
-    </div>
   </div>
 </Base>

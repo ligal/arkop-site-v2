@@ -4,8 +4,41 @@ import Gallery from '../../components/Gallery.astro';
 import { getEntry } from 'astro:content';
 
 const stone = await getEntry('stones', 'mishtachim');
-const { Content } = await stone.render();
 const base = import.meta.env.BASE_URL;
+const detailedCaptionByImage: Record<string, string> = {
+  'Example-1.JPG': "דוגמה מס' 1 - גרנוליט אפור בהיר",
+  'Example-2.JPG': "דוגמה מס' 2 - גרנוליט ירוק בהיר",
+  'Example-3.JPG': "דוגמה מס' 3 - גרנוליט אפור בהיר עם תערובת זכוכיות",
+  'Example-4.jpg': "דוגמה מס' 4 - גרנוליט אפור כהה וזכוכית אדומה",
+  'Example-5.JPG': "דוגמה מס' 5 - גרנוליט אפור כהה וזכוכית שחורה",
+  'Example-6.JPG': "דוגמה מס' 6 - גרנוליט אפור כהה וזכוכית תכלת",
+  'Example-7.JPG': "דוגמה מס' 7 - גרנוליט בורדו בהיר וזכוכיות אדומות",
+  'Example-8.JPG': "דוגמה מס' 8 - גרנוליט בורדו בהיר וזכוכיות סגולות",
+  'Example-9.JPG': "דוגמה מס' 9 - גרנוליט חום בהיר וזכוכיות כחול ותכלת",
+  'Example-10.JPG': "דוגמה מס' 10 - גרנוליט חלוקי נחל אפור כהה",
+  'Example-11.JPG': "דוגמה מס' 11 - גרנוליט אפור בהיר ובורדו כהה וזכוכיות כחולות",
+  'Example-12.JPG': "דוגמה מס' 12 - גרנוליט ירוקה וזכוכית תכלת",
+  'Example-13.JPG': "דוגמה מס' 13 - גרנוליט חלוקי נחל חומים",
+  'Example-14.JPG': "דוגמה מס' 14 - גרנוליט חלוקי נחל חומים, ירוק בהיר וזכוכיות ירוקות",
+  'Example-15.JPG': "דוגמה מס' 15 - גרנוליט מיקס שחור",
+  'Example-16.JPG': "דוגמה מס' 16 - גרנוליט שחור וזכוכיות אדומות",
+  'Example-17.JPG': "דוגמה מס' 17 - גרנוליט שחור וזכוכיות כחול עדין",
+  'Example-18.JPG': "דוגמה מס' 18 - גרנוליט שחור וזכוכיות כתומות",
+  'Example-19.JPG': "דוגמה מס' 19 - זכוכיות כחול ותכלת",
+  'Example-20.JPG': "דוגמה מס' 20 - גרנוליט אפור כהה וזכוכיות כחול ותכלת",
+  'Example-21.jpg': "דוגמה מס' 21 - גרנוליט חום-כתום",
+  'Example-22.jpg': "דוגמה מס' 22 - גרנוליט מיקס ירוק",
+  'Example-23.jpg': "דוגמה מס' 23 - גרנוליט לבן ושחור",
+  'Example-24.jpg': "דוגמה מס' 24 - גרנוליט שחור",
+  'Example-25.jpg': "דוגמה מס' 25 - זכוכיות שקופות",
+  'Example-26.jpg': "דוגמה מס' 26 - זכוכיות סגולות",
+  'Example-27.jpg': "דוגמה מס' 27 - זכוכיות תכלת",
+  'Example-28.jpg': "דוגמה מס' 28 - זכוכיות ירוק כהה",
+  'Example-29.jpg': "דוגמה מס' 29 - גרנוליט בורדו כהה",
+  'Example-30.JPG': "דוגמה מס' 30 - גרנוליט חום-כתום ובורדו כהה"
+};
+const shortCaptions = stone.data.images.map((_, index) => `דוגמה מספר ${index + 1}`);
+const detailedCaptions = stone.data.images.map((img) => detailedCaptionByImage[img] ?? img);
 ---
 
 <Base title={stone.data.title} description={stone.data.description}>
@@ -15,7 +48,7 @@ const base = import.meta.env.BASE_URL;
       <svg class="w-4 h-4 rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
       </svg>
-      <a href={`${base}/our-stones`} class="hover:text-stone transition-colors">האבנות שלנו</a>
+      <a href={`${base}/our-stones`} class="hover:text-stone transition-colors">האבנים שלנו</a>
       <svg class="w-4 h-4 rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
       </svg>
@@ -27,18 +60,16 @@ const base = import.meta.env.BASE_URL;
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
       <div class="lg:col-span-2">
         <h1 class="text-charcoal text-3xl sm:text-4xl font-black mb-4">{stone.data.title}</h1>
-        <p class="text-slate text-lg leading-relaxed mb-8">{stone.data.description}</p>
-        <div class="prose max-w-none mb-10 text-slate leading-relaxed
-          [&_h2]:text-charcoal [&_h2]:font-black [&_h2]:text-2xl [&_h2]:mb-4 [&_h2]:mt-8
-          [&_h3]:text-charcoal [&_h3]:font-bold [&_h3]:text-lg [&_h3]:mb-3 [&_h3]:mt-6
-          [&_ul]:list-disc [&_ul]:list-inside [&_ul]:space-y-1
-          [&_p]:mb-4 [&_strong]:text-charcoal [&_strong]:font-semibold">
-          <Content />
-        </div>
         {stone.data.images.length > 0 && (
           <div>
             <h2 class="text-charcoal font-black text-xl mb-4">גלריה</h2>
-            <Gallery images={stone.data.images} basePath="images/stones/mishtachim" title={stone.data.title} />
+            <Gallery
+              images={stone.data.images}
+              basePath="images/stones/mishtachim"
+              title={stone.data.title}
+              captions={shortCaptions}
+              lightboxCaptions={detailedCaptions}
+            />
           </div>
         )}
       </div>
@@ -49,8 +80,8 @@ const base = import.meta.env.BASE_URL;
           <a href={`${base}/contact`} class="block w-full bg-stone text-charcoal text-center font-bold py-3 rounded-lg hover:bg-stone/90 transition-colors">
             קבל הצעת מחיר
           </a>
-          <a href="tel:030000000" class="block w-full border border-white/20 text-white text-center font-medium py-3 rounded-lg hover:border-white/50 transition-colors mt-3 text-sm">
-            התקשר: 03-000-0000
+          <a href="tel:0545233095" class="block w-full border border-white/20 text-white text-center font-medium py-3 rounded-lg hover:border-white/50 transition-colors mt-3 text-sm">
+            התקשר: 054-5233095
           </a>
         </div>
       </div>
