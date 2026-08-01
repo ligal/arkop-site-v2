@@ -1,0 +1,132 @@
+---
+interface Props {
+  images: string[];
+  basePath: string;
+  title?: string;
+}
+
+const { images, basePath, title = 'גלריה' } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+
+{images.length > 0 && (
+  <div class="gallery-container">
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+      {images.map((img, i) => (
+        <button
+          class="gallery-thumb aspect-square overflow-hidden rounded-lg bg-slate/10 hover:opacity-90 transition-opacity cursor-zoom-in"
+          data-index={i}
+          data-src={`${base}images/${basePath}/${img}`}
+          aria-label={`${title} — תמונה ${i + 1}`}
+        >
+          <img
+            src={`${base}images/${basePath}/${img}`}
+            alt={`${title} — תמונה ${i + 1}`}
+            class="w-full h-full object-cover"
+            loading="lazy"
+            onerror="this.parentElement.classList.add('img-placeholder')"
+          />
+        </button>
+      ))}
+    </div>
+
+    <!-- Lightbox -->
+    <div
+      id="lightbox"
+      class="fixed inset-0 z-50 bg-black/90 hidden items-center justify-center"
+      role="dialog"
+      aria-modal="true"
+      aria-label={title}
+    >
+      <button
+        id="lightbox-close"
+        class="absolute top-4 end-4 p-2 text-white/70 hover:text-white transition-colors z-10"
+        aria-label="סגור"
+      >
+        <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <button
+        id="lightbox-prev"
+        class="absolute start-4 top-1/2 -translate-y-1/2 p-3 text-white/70 hover:text-white transition-colors z-10"
+        aria-label="הקודם"
+      >
+        <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+
+      <button
+        id="lightbox-next"
+        class="absolute end-16 top-1/2 -translate-y-1/2 p-3 text-white/70 hover:text-white transition-colors z-10"
+        aria-label="הבא"
+      >
+        <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+
+      <div class="max-w-5xl max-h-[85vh] px-16">
+        <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl" />
+      </div>
+
+      <div id="lightbox-counter" class="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/50 text-sm"></div>
+    </div>
+  </div>
+)}
+
+<script>
+  const thumbs = document.querySelectorAll<HTMLButtonElement>('.gallery-thumb');
+  const lightbox = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lightbox-img') as HTMLImageElement;
+  const lbCounter = document.getElementById('lightbox-counter');
+  const lbClose = document.getElementById('lightbox-close');
+  const lbPrev = document.getElementById('lightbox-prev');
+  const lbNext = document.getElementById('lightbox-next');
+
+  let current = 0;
+  const sources: string[] = [];
+
+  thumbs.forEach((thumb, i) => {
+    const src = thumb.getAttribute('data-src') || '';
+    sources.push(src);
+    thumb.addEventListener('click', () => open(i));
+  });
+
+  function open(index: number) {
+    current = index;
+    show();
+  }
+
+  function show() {
+    if (!lightbox || !lbImg || !lbCounter) return;
+    lbImg.src = sources[current];
+    lbCounter.textContent = `${current + 1} / ${sources.length}`;
+    lightbox.classList.remove('hidden');
+    lightbox.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close() {
+    lightbox?.classList.add('hidden');
+    lightbox?.classList.remove('flex');
+    document.body.style.overflow = '';
+  }
+
+  lbClose?.addEventListener('click', close);
+  lbPrev?.addEventListener('click', () => { current = (current - 1 + sources.length) % sources.length; show(); });
+  lbNext?.addEventListener('click', () => { current = (current + 1) % sources.length; show(); });
+
+  lightbox?.addEventListener('click', (e) => {
+    if (e.target === lightbox) close();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (lightbox?.classList.contains('hidden')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowRight') { current = (current - 1 + sources.length) % sources.length; show(); }
+    if (e.key === 'ArrowLeft') { current = (current + 1) % sources.length; show(); }
+  });
+</script>

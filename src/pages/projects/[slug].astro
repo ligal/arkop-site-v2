@@ -1,0 +1,127 @@
+---
+import Base from '../../layouts/Base.astro';
+import Gallery from '../../components/Gallery.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await project.render();
+const base = import.meta.env.BASE_URL;
+
+const allProjects = await getCollection('projects');
+const otherProjects = allProjects.filter((p) => p.slug !== project.slug).slice(0, 3);
+---
+
+<Base title={project.data.title} description={`פרויקט ${project.data.title} — ${project.data.location}`}>
+  <!-- Breadcrumb -->
+  <div class="bg-charcoal/5 border-b border-charcoal/10 py-3">
+    <div class="max-w-5xl mx-auto px-4 flex items-center gap-2 text-sm text-slate">
+      <a href={`${base}/`} class="hover:text-stone transition-colors">דף הבית</a>
+      <svg class="w-4 h-4 rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+      <a href={`${base}/projects`} class="hover:text-stone transition-colors">פרויקטים</a>
+      <svg class="w-4 h-4 rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+      <span class="text-charcoal font-medium">{project.data.title}</span>
+    </div>
+  </div>
+
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+      <!-- Main content -->
+      <div class="lg:col-span-2">
+        <div class="flex flex-wrap items-center gap-3 mb-4">
+          <span class="bg-stone/20 text-stone text-xs font-bold px-3 py-1 rounded-full">
+            {project.data.category}
+          </span>
+          <span class="text-slate text-sm">{project.data.year}</span>
+        </div>
+        <h1 class="text-charcoal text-3xl sm:text-4xl font-black mb-3">{project.data.title}</h1>
+        <div class="flex items-center gap-2 text-slate mb-8">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+          </svg>
+          <span>{project.data.location}</span>
+        </div>
+
+        <div class="prose max-w-none mb-10 text-slate leading-relaxed
+          [&_h2]:text-charcoal [&_h2]:font-black [&_h2]:text-2xl [&_h2]:mb-4 [&_h2]:mt-8
+          [&_h3]:text-charcoal [&_h3]:font-bold [&_h3]:text-lg [&_h3]:mb-3 [&_h3]:mt-6
+          [&_ul]:list-disc [&_ul]:list-inside [&_ul]:space-y-1
+          [&_p]:mb-4 [&_strong]:text-charcoal [&_strong]:font-semibold">
+          <Content />
+        </div>
+
+        {project.data.images.length > 0 && (
+          <div>
+            <h2 class="text-charcoal font-black text-xl mb-4">גלריה</h2>
+            <Gallery images={project.data.images} basePath={`images/projects/${project.slug}`} title={project.data.title} />
+          </div>
+        )}
+      </div>
+
+      <!-- Sidebar -->
+      <div class="lg:col-span-1">
+        <div class="bg-charcoal text-white rounded-xl p-6 sticky top-24 mb-6">
+          <h3 class="font-bold text-lg mb-4">פרטי הפרויקט</h3>
+          <dl class="space-y-3 text-sm">
+            <div>
+              <dt class="text-white/50 text-xs uppercase tracking-wide mb-1">מיקום</dt>
+              <dd class="text-white">{project.data.location}</dd>
+            </div>
+            <div>
+              <dt class="text-white/50 text-xs uppercase tracking-wide mb-1">קטגוריה</dt>
+              <dd class="text-white">{project.data.category}</dd>
+            </div>
+            <div>
+              <dt class="text-white/50 text-xs uppercase tracking-wide mb-1">שנה</dt>
+              <dd class="text-white">{project.data.year}</dd>
+            </div>
+          </dl>
+          <div class="mt-6 pt-6 border-t border-white/10">
+            <a
+              href={`${base}/contact`}
+              class="block w-full bg-stone text-charcoal text-center font-bold py-3 rounded-lg hover:bg-stone/90 transition-colors"
+            >
+              רוצים פרויקט דומה?
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Other projects -->
+    {otherProjects.length > 0 && (
+      <div class="mt-16 pt-12 border-t border-charcoal/10">
+        <h2 class="text-charcoal font-black text-2xl mb-8">פרויקטים נוספים</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          {otherProjects.map((p) => (
+            <a
+              href={`${base}/projects/${p.slug}`}
+              class="group block bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+            >
+              <div class="aspect-video bg-stone/10 flex items-center justify-center">
+                <svg class="w-10 h-10 text-stone/30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5" />
+                </svg>
+              </div>
+              <div class="p-4">
+                <p class="text-charcoal font-semibold group-hover:text-stone transition-colors">{p.data.title}</p>
+                <p class="text-slate text-sm">{p.data.location}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
+  </div>
+</Base>
