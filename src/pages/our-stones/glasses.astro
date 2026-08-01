@@ -4,8 +4,47 @@ import Gallery from '../../components/Gallery.astro';
 import { getEntry } from 'astro:content';
 
 const stone = await getEntry('stones', 'glasses');
-const { Content } = await stone.render();
 const base = import.meta.env.BASE_URL;
+const shortCaptionByImage: Record<string, string> = {
+  'ycf_012_1.JPG': 'Jade Green',
+  'Apple Green.JPG': 'Apple Green',
+  'glass_light_green.JPG': 'Light Green',
+  'ycf_012_2.JPG': 'Amber Brown',
+  'ycf_012_3.JPG': 'Crystal White',
+  'glass_pearl_black.JPG': 'Pearle Black',
+  'Clear Black.JPG': 'Clear Black',
+  'ycf_012_5.JPG': 'Sapphire Blue',
+  'glass_azure_blue.JPG': 'Azure Blue',
+  'ycf_012_7.JPG': 'Ocean Blue',
+  'ycf_012_8.JPG': 'Amethyst Purple',
+  'ycf_012_10.JPG': 'Crystal Yellow',
+  'Clear Yellow.JPG': 'Clear Yellow',
+  'ycf_012_11.JPG': 'Crystal Red',
+  'Pink.JPG': 'Pink',
+  'ycf_012_12.JPG': 'Crystal Orange',
+  'glass_bronze.JPG': 'Bronze'
+};
+const detailedCaptionByImage: Record<string, string> = {
+  'ycf_012_1.JPG': 'Jade Green גדלים: 0.6-1.5 מ"מ, 1.5-3 מ"מ, 3-6 מ"מ, 6-9 מ"מ, 9-12 מ"מ, 12+ מ"מ',
+  'Apple Green.JPG': 'Apple Green גדלים: 0.6-1.5 מ"מ, 1.5-3 מ"מ, 3-6 מ"מ, 6-9 מ"מ, 9-12 מ"מ, 12+ מ"מ',
+  'glass_light_green.JPG': 'Light Green גדלים: 0.6-1.5 מ"מ, 1.5-3 מ"מ, 3-6 מ"מ, 6-9 מ"מ, 9-12 מ"מ, 12+ מ"מ',
+  'ycf_012_2.JPG': 'Amber Brown גדלים: 0.6-1.5 מ"מ, 1.5-3 מ"מ, 3-6 מ"מ, 6-9 מ"מ, 9-12 מ"מ, 12+ מ"מ',
+  'ycf_012_3.JPG': 'Crystal White גדלים: 0.6-1.5 מ"מ, 1.5-3 מ"מ, 3-6 מ"מ, 6-9 מ"מ, 9-12 מ"מ, 12+ מ"מ',
+  'glass_pearl_black.JPG': 'Pearle Black גדלים: 0.6-1.5 מ"מ, 1.5-3 מ"מ, 3-6 מ"מ, 6-9 מ"מ, 9-12 מ"מ, 12+ מ"מ',
+  'Clear Black.JPG': 'Clear Black גדלים: 0.6-1.5 מ"מ, 1.5-3 מ"מ, 3-6 מ"מ, 6-9 מ"מ, 9-12 מ"מ, 12+ מ"מ',
+  'ycf_012_5.JPG': 'Sapphire Blue גדלים: 0.6-1.5 מ"מ, 1.5-3 מ"מ, 3-6 מ"מ, 6-9 מ"מ, 9-12 מ"מ, 12+ מ"מ',
+  'glass_azure_blue.JPG': 'Azure Blue גדלים: 0.6-1.5 מ"מ, 1.5-3 מ"מ, 3-6 מ"מ, 6-9 מ"מ, 9-12 מ"מ, 12+ מ"מ',
+  'ycf_012_7.JPG': 'Ocean Blue גדלים: 0.6-1.5 מ"מ, 1.5-3 מ"מ, 3-6 מ"מ, 6-9 מ"מ, 9-12 מ"מ, 12+ מ"מ',
+  'ycf_012_8.JPG': 'Amethyst Purple גדלים: 0.6-1.5 מ"מ, 1.5-3 מ"מ, 3-6 מ"מ, 6-9 מ"מ, 9-12 מ"מ, 12+ מ"מ',
+  'ycf_012_10.JPG': 'Crystal Yellow גדלים: 0.6-1.5 מ"מ, 1.5-3 מ"מ, 3-6 מ"מ, 6-9 מ"מ, 9-12 מ"מ, 12+ מ"מ',
+  'Clear Yellow.JPG': 'Clear Yellow גדלים: 0.6-1.5 מ"מ, 1.5-3 מ"מ, 3-6 מ"מ, 6-9 מ"מ, 9-12 מ"מ, 12+ מ"מ',
+  'ycf_012_11.JPG': 'Crystal Red גדלים: 0.6-1.5 מ"מ, 1.5-3 מ"מ, 3-6 מ"מ, 6-9 מ"מ, 9-12 מ"מ, 12+ מ"מ',
+  'Pink.JPG': 'Pink גדלים: 0.6-1.5 מ"מ, 1.5-3 מ"מ, 3-6 מ"מ, 6-9 מ"מ, 9-12 מ"מ, 12+ מ"מ',
+  'ycf_012_12.JPG': 'Crystal Orange גדלים: 0.6-1.5 מ"מ, 1.5-3 מ"מ, 3-6 מ"מ, 6-9 מ"מ, 9-12 מ"מ, 12+ מ"מ',
+  'glass_bronze.JPG': 'Bronze גדלים: 0.6-1.5 מ"מ, 1.5-3 מ"מ, 3-6 מ"מ, 6-9 מ"מ, 9-12 מ"מ, 12+ מ"מ'
+};
+const shortCaptions = stone.data.images.map((img) => shortCaptionByImage[img] ?? img);
+const detailedCaptions = stone.data.images.map((img) => detailedCaptionByImage[img] ?? img);
 ---
 
 <Base title={stone.data.title} description={stone.data.description}>
@@ -15,7 +54,7 @@ const base = import.meta.env.BASE_URL;
       <svg class="w-4 h-4 rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
       </svg>
-      <a href={`${base}/our-stones`} class="hover:text-stone transition-colors">האבנות שלנו</a>
+      <a href={`${base}/our-stones`} class="hover:text-stone transition-colors">האבנים שלנו</a>
       <svg class="w-4 h-4 rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
       </svg>
@@ -28,17 +67,16 @@ const base = import.meta.env.BASE_URL;
       <div class="lg:col-span-2">
         <h1 class="text-charcoal text-3xl sm:text-4xl font-black mb-4">{stone.data.title}</h1>
         <p class="text-slate text-lg leading-relaxed mb-8">{stone.data.description}</p>
-        <div class="prose max-w-none mb-10 text-slate leading-relaxed
-          [&_h2]:text-charcoal [&_h2]:font-black [&_h2]:text-2xl [&_h2]:mb-4 [&_h2]:mt-8
-          [&_h3]:text-charcoal [&_h3]:font-bold [&_h3]:text-lg [&_h3]:mb-3 [&_h3]:mt-6
-          [&_ul]:list-disc [&_ul]:list-inside [&_ul]:space-y-1
-          [&_p]:mb-4 [&_strong]:text-charcoal [&_strong]:font-semibold">
-          <Content />
-        </div>
         {stone.data.images.length > 0 && (
           <div>
             <h2 class="text-charcoal font-black text-xl mb-4">גלריה</h2>
-            <Gallery images={stone.data.images} basePath="images/stones/glasses" title={stone.data.title} />
+            <Gallery
+              images={stone.data.images}
+              basePath="images/stones/glasses"
+              title={stone.data.title}
+              captions={shortCaptions}
+              lightboxCaptions={detailedCaptions}
+            />
           </div>
         )}
       </div>
@@ -49,8 +87,8 @@ const base = import.meta.env.BASE_URL;
           <a href={`${base}/contact`} class="block w-full bg-stone text-charcoal text-center font-bold py-3 rounded-lg hover:bg-stone/90 transition-colors">
             קבל הצעת מחיר
           </a>
-          <a href="tel:030000000" class="block w-full border border-white/20 text-white text-center font-medium py-3 rounded-lg hover:border-white/50 transition-colors mt-3 text-sm">
-            התקשר: 03-000-0000
+          <a href="tel:0545233095" class="block w-full border border-white/20 text-white text-center font-medium py-3 rounded-lg hover:border-white/50 transition-colors mt-3 text-sm">
+            התקשר: 054-5233095
           </a>
         </div>
       </div>

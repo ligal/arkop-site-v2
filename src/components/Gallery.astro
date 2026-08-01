@@ -3,30 +3,45 @@ interface Props {
   images: string[];
   basePath: string;
   title?: string;
+  captions?: string[];
+  lightboxCaptions?: string[];
 }
 
-const { images, basePath, title = 'גלריה' } = Astro.props;
+const { images, basePath, title = 'גלריה', captions = [], lightboxCaptions = [] } = Astro.props;
 const base = import.meta.env.BASE_URL;
+const baseWithSlash = base.endsWith('/') ? base : `${base}/`;
+const normalizedBasePath = basePath.replace(/^\/+|\/+$/g, '');
+const pathWithImagesRoot = normalizedBasePath.startsWith('images/')
+  ? normalizedBasePath
+  : `images/${normalizedBasePath}`;
 ---
 
 {images.length > 0 && (
   <div class="gallery-container">
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
       {images.map((img, i) => (
-        <button
-          class="gallery-thumb aspect-square overflow-hidden rounded-lg bg-slate/10 hover:opacity-90 transition-opacity cursor-zoom-in"
-          data-index={i}
-          data-src={`${base}images/${basePath}/${img}`}
-          aria-label={`${title} — תמונה ${i + 1}`}
-        >
-          <img
-            src={`${base}images/${basePath}/${img}`}
-            alt={`${title} — תמונה ${i + 1}`}
-            class="w-full h-full object-cover"
-            loading="lazy"
-            onerror="this.parentElement.classList.add('img-placeholder')"
-          />
-        </button>
+        <figure>
+          <button
+            class="gallery-thumb group relative aspect-square overflow-hidden rounded-lg bg-slate/10 hover:opacity-95 transition-opacity cursor-zoom-in w-full"
+            data-index={i}
+            data-src={`${baseWithSlash}${pathWithImagesRoot}/${img}`}
+            data-caption={lightboxCaptions[i] ?? captions[i] ?? ''}
+            aria-label={`${title} — תמונה ${i + 1}`}
+          >
+            <img
+              src={`${baseWithSlash}${pathWithImagesRoot}/${img}`}
+              alt={`${title} — תמונה ${i + 1}`}
+              class="w-full h-full object-cover"
+              loading="lazy"
+              onerror="this.parentElement.classList.add('img-placeholder')"
+            />
+            {captions[i] && (
+              <div class="absolute inset-x-0 bottom-0 bg-black/65 backdrop-blur-[1px] px-2 py-1.5 text-center text-white text-xs sm:text-sm font-semibold leading-tight">
+                {captions[i]}
+              </div>
+            )}
+          </button>
+        </figure>
       ))}
     </div>
 
@@ -72,6 +87,7 @@ const base = import.meta.env.BASE_URL;
         <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl" />
       </div>
 
+      <div id="lightbox-caption" class="absolute bottom-12 left-1/2 -translate-x-1/2 bg-black/70 text-white text-sm sm:text-base font-semibold text-center px-4 py-2 rounded-lg max-w-3xl w-[calc(100%-2rem)] sm:w-auto"></div>
       <div id="lightbox-counter" class="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/50 text-sm"></div>
     </div>
   </div>
@@ -81,6 +97,7 @@ const base = import.meta.env.BASE_URL;
   const thumbs = document.querySelectorAll<HTMLButtonElement>('.gallery-thumb');
   const lightbox = document.getElementById('lightbox');
   const lbImg = document.getElementById('lightbox-img') as HTMLImageElement;
+  const lbCaption = document.getElementById('lightbox-caption');
   const lbCounter = document.getElementById('lightbox-counter');
   const lbClose = document.getElementById('lightbox-close');
   const lbPrev = document.getElementById('lightbox-prev');
@@ -88,10 +105,13 @@ const base = import.meta.env.BASE_URL;
 
   let current = 0;
   const sources: string[] = [];
+  const imageCaptions: string[] = [];
 
   thumbs.forEach((thumb, i) => {
     const src = thumb.getAttribute('data-src') || '';
+    const caption = thumb.getAttribute('data-caption') || '';
     sources.push(src);
+    imageCaptions.push(caption);
     thumb.addEventListener('click', () => open(i));
   });
 
@@ -101,8 +121,9 @@ const base = import.meta.env.BASE_URL;
   }
 
   function show() {
-    if (!lightbox || !lbImg || !lbCounter) return;
+    if (!lightbox || !lbImg || !lbCounter || !lbCaption) return;
     lbImg.src = sources[current];
+    lbCaption.textContent = imageCaptions[current] || '';
     lbCounter.textContent = `${current + 1} / ${sources.length}`;
     lightbox.classList.remove('hidden');
     lightbox.classList.add('flex');

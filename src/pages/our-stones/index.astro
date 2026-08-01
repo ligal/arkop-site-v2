@@ -1,52 +1,63 @@
 ---
 import Base from '../../layouts/Base.astro';
-import StoneCard from '../../components/StoneCard.astro';
-import { getCollection } from 'astro:content';
-
-const stones = (await getCollection('stones')).sort((a, b) => a.data.order - b.data.order);
 const base = import.meta.env.BASE_URL;
+const baseWithSlash = base.endsWith('/') ? base : `${base}/`;
 ---
 
-<Base title="האבנים שלנו" description="מגוון האבנות הטבעיות של ארקופ — גרניט, שיש, חלוקי נחל, אגאט ועוד">
-  <!-- Page hero -->
-  <div class="bg-charcoal text-white py-20 px-4">
-    <div class="max-w-4xl mx-auto text-center">
-      <p class="text-stone font-semibold uppercase tracking-widest text-sm mb-3">הקטלוג שלנו</p>
-      <h1 class="text-4xl sm:text-5xl font-black mb-4">האבנות שלנו</h1>
-      <p class="text-white/60 text-lg max-w-2xl mx-auto">
-        יותר מ-50 סוגי אבן ייחודיים מהמחצבות הטובות בעולם — כל אחת עם אופי ויופי משלה
-      </p>
-    </div>
-  </div>
+<Base title="האבנים שלנו" description="האבנים שלנו - כמו באתר המורשת">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+    <h1 class="text-4xl sm:text-5xl font-black text-[#990033] text-center mb-8">האבנים שלנו</h1>
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-      {stones.map((stone) => (
-        <StoneCard
-          title={stone.data.title}
-          description={stone.data.description}
-          href={`${base}/our-stones/${stone.slug}`}
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <a
+        class="group block text-center rounded-xl bg-white p-3 shadow-sm border border-black/5 hover:shadow-md transition-all duration-300"
+        href={`${base}/our-stones/natural`}
+      >
+        <img
+          class="w-full aspect-[4/3] object-cover rounded-lg border border-black/10 group-hover:scale-[1.02] transition-transform duration-300"
+          src={`${baseWithSlash}images/stones/covers/natural.jpg`}
+          alt="אבנים טבעיות"
         />
-      ))}
+        <h2 class="mt-3 text-lg font-bold text-charcoal">אבנים טבעיות</h2>
+      </a>
+
+      <a
+        class="group block text-center rounded-xl bg-white p-3 shadow-sm border border-black/5 hover:shadow-md transition-all duration-300"
+        href={`${base}/our-stones/glasses`}
+      >
+        <img
+          class="w-full aspect-[4/3] object-cover rounded-lg border border-black/10 group-hover:scale-[1.02] transition-transform duration-300"
+          src={`${baseWithSlash}images/stones/covers/glasses.jpg`}
+          alt="זכוכיות מעוגלות"
+        />
+        <h2 class="mt-3 text-lg font-bold text-charcoal">זכוכיות מעוגלות</h2>
+      </a>
+
+      <a
+        class="group block text-center rounded-xl bg-white p-3 shadow-sm border border-black/5 hover:shadow-md transition-all duration-300"
+        href={`${base}/our-stones/ground-glasses`}
+      >
+        <img
+          class="w-full aspect-[4/3] object-cover rounded-lg border border-black/10 group-hover:scale-[1.02] transition-transform duration-300"
+          src={`${baseWithSlash}images/stones/covers/ground-glasses.jpg`}
+          alt="זכוכיות גרוסות"
+        />
+        <h2 class="mt-3 text-lg font-bold text-charcoal">זכוכיות גרוסות</h2>
+      </a>
     </div>
 
-    <!-- Info banner -->
-    <div class="mt-16 bg-stone/10 rounded-2xl p-8 sm:p-12 flex flex-col sm:flex-row items-center gap-6">
-      <div class="shrink-0 w-16 h-16 bg-stone/20 rounded-full flex items-center justify-center">
-        <svg class="w-8 h-8 text-stone" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      </div>
-      <div class="text-center sm:text-start">
-        <h3 class="text-charcoal font-bold text-lg mb-2">לא מצאתם מה שחיפשתם?</h3>
-        <p class="text-slate text-sm mb-4">המלאי שלנו משתנה ומתרחב כל הזמן. צרו קשר ואנחנו נעשה הכל כדי למצוא עבורכם את האבן המתאימה.</p>
-        <a
-          href={`${base}/contact`}
-          class="inline-flex items-center gap-2 bg-charcoal text-white font-semibold px-6 py-2.5 rounded-lg hover:bg-charcoal/90 transition-colors text-sm"
-        >
-          שאלו אותנו
-        </a>
-      </div>
+    <div class="mt-8 max-w-[260px] mx-auto">
+      <a
+        class="group block text-center rounded-xl bg-white p-3 shadow-sm border border-black/5 hover:shadow-md transition-all duration-300"
+        href={`${base}/our-stones/mishtachim`}
+      >
+        <img
+          class="w-full aspect-[4/3] object-cover rounded-lg border border-black/10 group-hover:scale-[1.02] transition-transform duration-300"
+          src={`${baseWithSlash}images/stones/covers/mishtachim.jpg`}
+          alt="דוגמאות ליציקות גרנוליט"
+        />
+        <h2 class="mt-3 text-lg font-bold text-charcoal">דוגמאות ליציקות גרנוליט</h2>
+      </a>
     </div>
   </div>
 </Base>

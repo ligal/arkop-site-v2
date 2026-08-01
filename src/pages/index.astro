@@ -1,131 +1,85 @@
 ---
 import Base from '../layouts/Base.astro';
-import HeroSection from '../components/HeroSection.astro';
-import StoneCard from '../components/StoneCard.astro';
-import ProjectCard from '../components/ProjectCard.astro';
-import { getCollection } from 'astro:content';
 
-const stones = (await getCollection('stones')).sort((a, b) => a.data.order - b.data.order).slice(0, 4);
-const projects = (await getCollection('projects')).slice(0, 3);
 const base = import.meta.env.BASE_URL;
+const baseWithSlash = base.endsWith('/') ? base : `${base}/`;
 ---
 
-<Base title="דף הבית">
-  <HeroSection />
-
-  <!-- Categories preview -->
-  <section class="py-20 bg-off-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <p class="text-stone font-semibold uppercase tracking-widest text-sm mb-2">המוצרים שלנו</p>
-        <h2 class="text-charcoal text-3xl sm:text-4xl font-black">האבנות שלנו</h2>
-        <p class="text-slate mt-3 max-w-xl mx-auto">מגוון עשיר של אבנות טבעיות ומיוחדות לכל פרויקט ושימוש</p>
-      </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {stones.map((stone) => (
-          <StoneCard
-            title={stone.data.title}
-            description={stone.data.description}
-            href={`${base}/our-stones/${stone.slug}`}
-          />
-        ))}
-      </div>
-      <div class="text-center mt-10">
-        <a
-          href={`${base}/our-stones`}
-          class="inline-flex items-center gap-2 border-2 border-stone text-stone font-semibold px-6 py-3 rounded-lg hover:bg-stone hover:text-charcoal transition-colors"
-        >
-          כל האבנות
-          <svg class="w-4 h-4 rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Why us -->
-  <section class="py-20 bg-charcoal text-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-14">
-        <p class="text-stone font-semibold uppercase tracking-widest text-sm mb-2">למה לבחור בנו</p>
-        <h2 class="text-3xl sm:text-4xl font-black">היתרון של ארקופ</h2>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {[
-          {
-            icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
-            title: 'איכות מוכחת',
-            desc: 'כל אבן עוברת בדיקות איכות מחמירות לפני ייבוא. אנו עובדים רק עם ספקים מוסמכים ומהימנים.',
-          },
-          {
-            icon: 'M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3',
-            title: 'מחיר הוגן',
-            desc: 'בזכות ייבוא ישיר מהמחצבה, אנו מציעים מחירים תחרותיים ללא מתווכים מיותרים.',
-          },
-          {
-            icon: 'M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z',
-            title: 'שירות אישי',
-            desc: 'צוות המומחים שלנו ילווה אתכם מהבחירה הראשונה ועד להתקנה האחרונה.',
-          },
-        ].map(({ icon, title, desc }) => (
-          <div class="text-center p-8 rounded-xl bg-white/5 hover:bg-white/10 transition-colors">
-            <div class="w-14 h-14 bg-stone/20 rounded-full flex items-center justify-center mx-auto mb-5">
-              <svg class="w-7 h-7 text-stone" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={icon} />
-              </svg>
-            </div>
-            <h3 class="text-white font-bold text-lg mb-3">{title}</h3>
-            <p class="text-white/60 text-sm leading-relaxed">{desc}</p>
+<Base title="דף הבית" description="ARKOP Fine Natural Stones - מראה מודרני המבוסס על זהות המותג">
+  <section class="relative overflow-hidden bg-[#072f2d] text-white">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,#8f2236_0%,transparent_45%)] opacity-60"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-24">
+      <div class="grid lg:grid-cols-2 gap-10 items-center">
+        <div class="text-center lg:text-right">
+          <p class="inline-block text-xs tracking-[0.3em] uppercase bg-white/10 border border-white/20 rounded-full px-4 py-1 mb-5">
+            יבוא ושיווק אבנים טבעיות
+          </p>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight mb-5">
+            IT'S ALL ABOUT STYLE AND DESIGN
+          </h1>
+          <p class="text-white/75 text-lg max-w-xl mx-auto lg:mx-0 mb-8">
+            FOR YOUR INTERIOR AND EXTERIOR NEEDS
+          </p>
+          <div class="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+            <a
+              href={`${base}/our-stones`}
+              class="inline-flex items-center justify-center px-7 py-3 rounded-lg bg-[#8f2236] font-semibold hover:bg-[#a1273e] transition-colors"
+            >
+              צפייה באבנים
+            </a>
+            <a
+              href={`${base}/contact`}
+              class="inline-flex items-center justify-center px-7 py-3 rounded-lg border border-white/30 hover:bg-white/10 transition-colors"
+            >
+              יצירת קשר
+            </a>
           </div>
-        ))}
-      </div>
-    </div>
-  </section>
+        </div>
 
-  <!-- Projects preview -->
-  <section class="py-20 bg-off-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <p class="text-stone font-semibold uppercase tracking-widest text-sm mb-2">העבודות שלנו</p>
-        <h2 class="text-charcoal text-3xl sm:text-4xl font-black">פרויקטים נבחרים</h2>
-        <p class="text-slate mt-3 max-w-xl mx-auto">מאות פרויקטים מוצלחים ברחבי ישראל — מדירות פרטיות ועד מתחמים מסחריים</p>
-      </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {projects.map((project) => (
-          <ProjectCard
-            title={project.data.title}
-            location={project.data.location}
-            category={project.data.category}
-            year={project.data.year}
-            href={`${base}/projects/${project.slug}`}
+        <div class="rounded-2xl bg-white p-4 sm:p-6 shadow-2xl">
+          <img
+            src={`${baseWithSlash}images/brand/arkop-logo-legacy.png`}
+            alt="ARKOP Fine Natural Stones"
+            class="w-full h-auto rounded-xl"
+            loading="eager"
           />
-        ))}
-      </div>
-      <div class="text-center mt-10">
-        <a
-          href={`${base}/projects`}
-          class="inline-flex items-center gap-2 border-2 border-stone text-stone font-semibold px-6 py-3 rounded-lg hover:bg-stone hover:text-charcoal transition-colors"
-        >
-          כל הפרויקטים
-          <svg class="w-4 h-4 rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </a>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- CTA band -->
-  <section class="py-16 bg-stone">
-    <div class="max-w-4xl mx-auto px-4 text-center">
-      <h2 class="text-charcoal text-3xl sm:text-4xl font-black mb-4">מוכנים להתחיל?</h2>
-      <p class="text-charcoal/70 text-lg mb-8 max-w-xl mx-auto">
-        צרו קשר עם הצוות שלנו לקבלת הצעת מחיר מותאמת אישית לפרויקט שלכם
+  <section class="bg-white border-y border-black/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <div>
+          <p class="text-3xl font-black text-[#072f2d]">20+</p>
+          <p class="text-slate text-sm mt-1">שנות ניסיון</p>
+        </div>
+        <div>
+          <p class="text-3xl font-black text-[#8f2236]">500+</p>
+          <p class="text-slate text-sm mt-1">פרויקטים</p>
+        </div>
+        <div>
+          <p class="text-3xl font-black text-[#072f2d]">50+</p>
+          <p class="text-slate text-sm mt-1">סוגי אבן</p>
+        </div>
+        <div>
+          <p class="text-3xl font-black text-[#8f2236]">100%</p>
+          <p class="text-slate text-sm mt-1">שירות אישי</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 bg-gradient-to-r from-[#8f2236] to-[#072f2d]">
+    <div class="max-w-4xl mx-auto px-4 text-center text-white">
+      <h2 class="text-3xl sm:text-4xl font-black mb-4">מוכנים לפרויקט הבא?</h2>
+      <p class="text-white/80 text-lg mb-8 max-w-xl mx-auto">
+        נשמח לבנות איתכם קונספט חומרי מדויק — מהבחירה ועד הביצוע.
       </p>
       <a
         href={`${base}/contact`}
-        class="inline-flex items-center justify-center gap-2 bg-charcoal text-white font-bold px-10 py-4 rounded-lg hover:bg-charcoal/90 transition-colors text-lg shadow-xl"
+        class="inline-flex items-center justify-center gap-2 bg-white text-[#072f2d] font-bold px-10 py-4 rounded-lg hover:bg-white/90 transition-colors text-lg shadow-xl"
       >
         צור קשר עכשיו
       </a>
