@@ -72,12 +72,12 @@ const detailedCaptions = stone.data.images.map((img) => detailedCaptionByImage[i
             <h2 class="text-charcoal font-black text-xl mb-4">גלריה</h2>
             <div class="grid grid-cols-1 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] gap-4 items-start">
               <div class="bg-white rounded-2xl border border-black/10 p-3 sm:p-4">
-                <div class="aspect-[4/3] rounded-xl overflow-hidden bg-slate/10">
+                <div class="aspect-[5/4] rounded-xl overflow-hidden bg-slate/10">
                   <img
                     id="glasses-focus-image"
                     src={`${baseWithSlash}images/stones/glasses/${stone.data.images[0]}`}
                     alt={stone.data.title}
-                    class="w-full h-full object-cover"
+                    class="w-full h-full object-contain"
                   />
                 </div>
                 <p id="glasses-focus-caption" class="mt-3 text-sm sm:text-base font-semibold text-charcoal text-center whitespace-pre-line">
