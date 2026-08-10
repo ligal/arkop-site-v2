@@ -88,7 +88,7 @@ const detailedCaptions = stone.data.images.map((img) => detailedCaptionByImage[i
                     <img
                       src={`${baseWithSlash}images/stones/natural/${img}`}
                       alt={`${stone.data.title} — תמונה ${i + 1}`}
-                      class="w-full h-full object-cover"
+                      class="w-full h-full object-contain bg-white"
                       loading="lazy"
                     />
                     <div class="absolute inset-x-0 bottom-0 bg-black/65 backdrop-blur-[1px] px-2 py-1 text-center text-white text-xs font-semibold leading-tight">
