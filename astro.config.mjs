@@ -2,8 +2,7 @@ import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
-  site: 'https://ligal.github.io',
-  base: '/arkop-site-v2',
+  site: 'https://arkop.co.il',
   output: 'static',
   integrations: [tailwind()],
 });
