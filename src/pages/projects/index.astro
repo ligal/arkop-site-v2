@@ -74,15 +74,11 @@ const projectsInIsrael = [
   'שצ"פ מבנן מגורים ברמת רחל - ירושלים / אדריכלות נוף: רינה קרוגליאק.',
   'פארק המוסיקה בראש העין / אדריכלות נוף: איתן עדן.',
   'פאטיו – מרכז קשב בלוד / אדריכלות נוף: ת.מ.א.',
-  'פיתוח סביבתי באשקלון / אדריכלות נוף: רימון סביבה ונוף בע"מ.',
-  'משרד חברת I.F.P בהרצליה / אדריכלות: מיכל גלובן.',
-  'חנויות תכשיטי פדני בת"א / עיצוב: אמנה ניב-אלוני.'
+  'פיתוח סביבתי באשקלון / אדריכלות נוף: רימון סביבה ונוף בע"מ.'
 ];
-
-const projectsAbroad = ['בניני משרדים, מגורים ופיתוח סביבתי.'];
 ---
 
-<Base title="פרוייקטים" description="פרוייקטים שבוצעו בארץ ובחו״ל">
+<Base title="פרוייקטים" description="פרוייקטים שבוצעו בארץ">
   <section class="relative overflow-hidden bg-[#072f2d] text-white">
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,#8f2236_0%,transparent_45%)] opacity-60"></div>
     <div class="relative max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-16 text-center">
@@ -96,13 +92,6 @@ const projectsAbroad = ['בניני משרדים, מגורים ופיתוח סב
       <h2 class="text-[#072f2d] text-xl sm:text-2xl font-black mb-5">פרוייקטים שבוצעו בארץ:</h2>
       <ul class="list-disc list-inside marker:text-[#8f2236] space-y-2.5 text-charcoal leading-relaxed text-sm sm:text-base">
         {projectsInIsrael.map((item) => <li>{item}</li>)}
-      </ul>
-    </section>
-
-    <section class="bg-white rounded-2xl border border-black/5 shadow-sm p-5 sm:p-7">
-      <h2 class="text-[#072f2d] text-xl sm:text-2xl font-black mb-5">פרוייקטים שבוצעו בחו״ל:</h2>
-      <ul class="list-disc list-inside marker:text-[#8f2236] space-y-2.5 text-charcoal leading-relaxed text-sm sm:text-base">
-        {projectsAbroad.map((item) => <li>{item}</li>)}
       </ul>
     </section>
   </div>
