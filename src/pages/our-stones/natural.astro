@@ -78,7 +78,7 @@ const detailedCaptions = stone.data.images.map((img) => detailedCaptionByImage[i
               <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-3">
                 {stone.data.images.map((img, i) => (
                   <button
-                    class={`natural-thumb group relative aspect-[4/3] overflow-hidden rounded-lg bg-slate/10 transition-all w-full ${
+                    class={`natural-thumb group relative aspect-square overflow-hidden rounded-lg bg-slate/10 transition-all w-full ${
                       i === 0 ? 'ring-2 ring-[#8f2236]' : 'hover:opacity-95'
                     }`}
                     data-src={`${baseWithSlash}images/stones/natural/${img}`}
@@ -88,7 +88,7 @@ const detailedCaptions = stone.data.images.map((img) => detailedCaptionByImage[i
                     <img
                       src={`${baseWithSlash}images/stones/natural/${img}`}
                       alt={`${stone.data.title} — תמונה ${i + 1}`}
-                      class="w-full h-full object-contain bg-white"
+                      class="w-full h-full object-contain bg-white p-1"
                       loading="lazy"
                     />
                     <div class="absolute inset-x-0 bottom-0 bg-black/65 backdrop-blur-[1px] px-2 py-1 text-center text-white text-xs font-semibold leading-tight">
