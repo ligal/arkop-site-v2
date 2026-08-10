@@ -7,7 +7,7 @@ interface Props {
 }
 
 const { title, description, href, imageSrc } = Astro.props;
-const base = import.meta.env.BASE_URL;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const baseWithSlash = base.endsWith('/') ? base : `${base}/`;
 const normalizedImageSrc = imageSrc?.replace(/^\/+/, '');
 ---
