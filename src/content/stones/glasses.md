@@ -2,23 +2,20 @@
 title: זכוכיות מעוגלות
 description: אבני זכוכית מיוצרות מזכוכית ממוחזרת שעברה תהליך עיגול וליטוש המעניק להן מראה של אבן ים. הן נוצצות, צבעוניות ועמידות — אידיאליות לבריכות, גינות, אקווריומים, עיצוב חללים ייחודיים ותפאורה.
 images:
-  - ycf_012_1.JPG
-  - Apple Green.JPG
-  - glass_light_green.JPG
-  - ycf_012_2.JPG
-  - ycf_012_3.JPG
-  - glass_pearl_black.JPG
-  - Clear Black.JPG
-  - ycf_012_5.JPG
-  - glass_azure_blue.JPG
-  - ycf_012_7.JPG
-  - ycf_012_8.JPG
-  - ycf_012_10.JPG
-  - Clear Yellow.JPG
-  - ycf_012_11.JPG
-  - Pink.JPG
-  - ycf_012_12.JPG
-  - glass_bronze.JPG
+  - 13-078A9079.jpg
+  - 15-078A9083.jpg
+  - 16-078A9084.jpg
+  - 14-078A9080.jpg
+  - 17-078A9086.jpg
+  - 18-078A9087.jpg
+  - 20-078A9089.jpg
+  - 19-078A9088.jpg
+  - 22-078A9091.jpg
+  - 21-078A9090.jpg
+  - 24-078A9093.jpg
+  - 23-078A9092.jpg
+  - 25-078A9094.jpg
+  - 26-078A9096.jpg
 order: 4
 ---
 
