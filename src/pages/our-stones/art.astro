@@ -5,7 +5,7 @@ import { getEntry } from 'astro:content';
 
 const stone = await getEntry('stones', 'art');
 const { Content } = await stone.render();
-const base = import.meta.env.BASE_URL;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <Base title={stone.data.title} description={stone.data.description}>

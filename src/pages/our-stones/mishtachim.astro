@@ -3,7 +3,7 @@ import Base from '../../layouts/Base.astro';
 import { getEntry } from 'astro:content';
 
 const stone = await getEntry('stones', 'mishtachim');
-const base = import.meta.env.BASE_URL;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const baseWithSlash = base.endsWith('/') ? base : `${base}/`;
 const detailedCaptionByImage: Record<string, string> = {
   'Example-1.JPG': "דוגמה מס' 1 - גרנוליט אפור בהיר",

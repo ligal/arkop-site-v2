@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-const base = import.meta.env.BASE_URL;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <Base title="צור קשר" description="צרו קשר עם ארקופ — נשמח לענות על שאלות ולספק הצעת מחיר">
