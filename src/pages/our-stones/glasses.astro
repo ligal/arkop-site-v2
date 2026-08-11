@@ -7,7 +7,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const baseWithSlash = base.endsWith('/') ? base : `${base}/`;
 const shortCaptionByImage: Record<string, string> = {
   'ycf_012_1.JPG': 'Jade Green',
-  'Apple Green.JPG': 'Apple Green',
   'glass_light_green.JPG': 'Light Green',
   'ycf_012_2.JPG': 'Amber Brown',
   'ycf_012_3.JPG': 'Crystal White',
@@ -18,15 +17,12 @@ const shortCaptionByImage: Record<string, string> = {
   'ycf_012_7.JPG': 'Ocean Blue',
   'ycf_012_8.JPG': 'Amethyst Purple',
   'ycf_012_10.JPG': 'Crystal Yellow',
-  'Clear Yellow.JPG': 'Clear Yellow',
   'ycf_012_11.JPG': 'Crystal Red',
-  'Pink.JPG': 'Pink',
   'ycf_012_12.JPG': 'Crystal Orange',
   'glass_bronze.JPG': 'Bronze'
 };
 const detailedCaptionByImage: Record<string, string> = {
   'ycf_012_1.JPG': 'Jade Green\nגדלים: 0.6-1.5 מ"מ, 1.5-3 מ"מ, 3-6 מ"מ, 6-9 מ"מ, 9-12 מ"מ, 12+ מ"מ',
-  'Apple Green.JPG': 'Apple Green\nגדלים: 0.6-1.5 מ"מ, 1.5-3 מ"מ, 3-6 מ"מ, 6-9 מ"מ, 9-12 מ"מ, 12+ מ"מ',
   'glass_light_green.JPG': 'Light Green\nגדלים: 0.6-1.5 מ"מ, 1.5-3 מ"מ, 3-6 מ"מ, 6-9 מ"מ, 9-12 מ"מ, 12+ מ"מ',
   'ycf_012_2.JPG': 'Amber Brown\nגדלים: 0.6-1.5 מ"מ, 1.5-3 מ"מ, 3-6 מ"מ, 6-9 מ"מ, 9-12 מ"מ, 12+ מ"מ',
   'ycf_012_3.JPG': 'Crystal White\nגדלים: 0.6-1.5 מ"מ, 1.5-3 מ"מ, 3-6 מ"מ, 6-9 מ"מ, 9-12 מ"מ, 12+ מ"מ',
@@ -37,9 +33,7 @@ const detailedCaptionByImage: Record<string, string> = {
   'ycf_012_7.JPG': 'Ocean Blue\nגדלים: 0.6-1.5 מ"מ, 1.5-3 מ"מ, 3-6 מ"מ, 6-9 מ"מ, 9-12 מ"מ, 12+ מ"מ',
   'ycf_012_8.JPG': 'Amethyst Purple\nגדלים: 0.6-1.5 מ"מ, 1.5-3 מ"מ, 3-6 מ"מ, 6-9 מ"מ, 9-12 מ"מ, 12+ מ"מ',
   'ycf_012_10.JPG': 'Crystal Yellow\nגדלים: 0.6-1.5 מ"מ, 1.5-3 מ"מ, 3-6 מ"מ, 6-9 מ"מ, 9-12 מ"מ, 12+ מ"מ',
-  'Clear Yellow.JPG': 'Clear Yellow\nגדלים: 0.6-1.5 מ"מ, 1.5-3 מ"מ, 3-6 מ"מ, 6-9 מ"מ, 9-12 מ"מ, 12+ מ"מ',
   'ycf_012_11.JPG': 'Crystal Red\nגדלים: 0.6-1.5 מ"מ, 1.5-3 מ"מ, 3-6 מ"מ, 6-9 מ"מ, 9-12 מ"מ, 12+ מ"מ',
-  'Pink.JPG': 'Pink\nגדלים: 0.6-1.5 מ"מ, 1.5-3 מ"מ, 3-6 מ"מ, 6-9 מ"מ, 9-12 מ"מ, 12+ מ"מ',
   'ycf_012_12.JPG': 'Crystal Orange\nגדלים: 0.6-1.5 מ"מ, 1.5-3 מ"מ, 3-6 מ"מ, 6-9 מ"מ, 9-12 מ"מ, 12+ מ"מ',
   'glass_bronze.JPG': 'Bronze\nגדלים: 0.6-1.5 מ"מ, 1.5-3 מ"מ, 3-6 מ"מ, 6-9 מ"מ, 9-12 מ"מ, 12+ מ"מ'
 };
